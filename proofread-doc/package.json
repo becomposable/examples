@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "@composableai/studio": "^0.7.2",
-    "api-fetch-client": "^0.6.0",
+    "@composableai/studio": "^0.7.3",
+    "api-fetch-client": "^0.6.1",
     "eventsource": "^2.0.2"
   },
   "scripts": {
