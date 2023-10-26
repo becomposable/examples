@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { ProofreadDocumentation, configure } from "./interactions.js";
+import { ProofreadDocumentation, configure, getClient } from "./interactions.js";
 
 const apiKey = process.env.COMPOSABLE_PROMPTS_API_KEY;
 const serverUrl =
@@ -18,28 +18,20 @@ configure({
 });
 
 async function proofread(content: string) {
-  const proofreader = new ProofreadDocumentation();
-  const res = await proofreader.execute({
+  return await new ProofreadDocumentation().execute({
     data: {
       current_doc: content,
     },
   });
-  return res;
 }
 
-function main() {
+async function main() {
   if (!file) {
     throw new Error("No file provided.");
   }
-
   const fileContent = readFileSync(file, "utf8");
-
-  const res = proofread(fileContent);
-
-  const output = JSON.stringify(res, null, 2);
-
-  console.log(output);
-
+  const res = await proofread(fileContent);
+  console.log(res.result);
   return;
 }
 
