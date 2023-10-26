@@ -24,7 +24,7 @@ async function main() {
     }
     const fileContent = readFileSync(file, "utf8");
     const res = await proofread(fileContent);
-    console.log(res.result);
+    console.log(res.result.updated_doc);
     return;
 }
 main();
