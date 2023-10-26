@@ -1,4 +1,4 @@
-import { StudioClient, InteractionBase } from "@dglabs/client";
+import { InteractionBase, StudioClient } from "@composableai/studio";
 
 const projectId = '652d4affb9f2f5d2c7a73820';
 
@@ -11,7 +11,7 @@ export function configure(opts: {
     return (_client = new StudioClient({ projectId, ...opts }));
 }
 const getClient = () => _client;
-export { getClient, projectId }
+export { getClient, projectId };
 
 /**
  * Simple Story Gen result type
