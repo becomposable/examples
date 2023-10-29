@@ -20,8 +20,11 @@ configure({
 
 //call the interaction to proofread the content
 async function proofread(content: string, tokenCount: number) {
+    //instantiating the interaction
     const req = new ProofreadDocumentation();
 
+    //launch the execution with a custom max_tokens
+    //here you could also change the model or environment
     const res = req.execute({
         config: {
             max_tokens: 8000 - 200 - tokenCount, //200 to take prompt template into account
