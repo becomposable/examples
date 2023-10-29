@@ -39,11 +39,7 @@ Token Count:  715
 Response:
 Received response in 60797ms
 Length of updated doc: 3164
-Token used {
-  "prompt": 853,
-  "result": 812,
-  "total": 1665
-}
+Token used: 1665
 Summary of Changes:  Clarified some sentences for better understanding, corrected some grammatical errors, and improved the overall flow of the document.
 Saving updated file:  ./yourfile.updated.mdx
 ```
