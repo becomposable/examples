@@ -1,26 +1,24 @@
 # LLM-Powered Documentation Proofreading
 
-This example shows how to use an Interaction to proofread documentation,
-using [Composable Prompts's Studio](https://composableprompts.com/features).
+This example demonstrates how to use an Interaction to proofread documentation, utilizing [Composable Prompts's Studio](https://composableprompts.com/features).
 
-It uses an Interaction "Proofread Documentation" that takes a document as input and ouput
-the updated document. By default it uses GPT-4 but it can also run on Llama2 and Mistral easily.
+The Interaction, named "Proofread Documentation", accepts a document as input and outputs the updated document. Although it uses GPT-4 by default, it can also run on Llama2 and Mistral with ease.
 
-As you can see, it takes less than 10 lines of code to have this task executed by a LLM and integrated into your client code!
+As shown, executing this task with an LLM and integrating it into your client code requires less than 10 lines of code!
 
-You can learn more on [how to use Interactions in Typescript / Javascript](https://docs.composableprompts.com/execute) on in the documentation.
+For more information on [how to use Interactions in Typescript / Javascript](https://docs.composableprompts.com/execute), refer to the documentation.
 
-You can clone and use this code as a base.
+Feel free to clone and use this code as a base.
 
-We plan to adapt it and make it into a generic Github Action for easy use as part of workflows.
+We aim to transform it into a generic Github Action for seamless integration into workflows.
 
 ## How to use
 
 -   Create an Interaction `Proofread Documentation` in your [Composable Prompts's project](https://docs.composableprompts.com/quickstart)
 
-    -   Input schema should have one field `content`
+    -   The input schema should include one field: `content`
 
-    -   Output schema should have two fields: `updated_content` and `changes_summary`
+    -   The output schema should consist of two fields: `updated_content` and `changes_summary`
 
 -   Clone this repository / folder and install [cpcli](https://docs.composableprompts.com/cpcli)
 
@@ -44,6 +42,6 @@ Summary of Changes:  Clarified some sentences for better understanding, correcte
 Saving updated file:  ./yourfile.updated.mdx
 ```
 
--   You can then also see the runs in your [Composable Prompts's Studio Run Console](https://app.composableprompts.com/runs)
+-   You can then also view the runs in your [Composable Prompts's Studio Run Console](https://app.composableprompts.com/runs)
 
-This is an example of how to leverage an LLM in your code, without having to do the heavy lifting of the integration, and keeping prompts and application separated. Also, it's pretty handy when writing docs!
+This example illustrates how to employ an LLM in your code, eliminating the need for complex integration tasks, while keeping prompts and application separate. Plus, it's quite handy for writing docs!
