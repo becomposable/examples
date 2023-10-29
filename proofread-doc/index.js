@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import { ProofreadDocumentation, configure } from "./interactions.js";
 const apiKey = process.env.COMPOSABLE_PROMPTS_API_KEY;
-const serverUrl = process.env.COMPOSABLE_PROMPTS_SERVER_URL || "http://localhost:8091";
+const serverUrl = process.env.COMPOSABLE_PROMPTS_SERVER_URL || undefined;
 const stream = false;
 const file = process.argv[2];
 if (!apiKey) {
@@ -19,6 +19,7 @@ async function proofread(content) {
     });
 }
 async function main() {
+    const file = "~/Code/llm-studio/apps/docs/src/app/interactions/page.mdx";
     if (!file) {
         throw new Error("No file provided.");
     }
