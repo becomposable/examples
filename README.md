@@ -25,7 +25,7 @@ $ cd proofread-doc
 $ bun index.ts README.md
 
 #Alternatively, run with node-ts
-node-ts --esm index.ts README.md
+$ node-ts --esm index.ts README.md
 
 ```
 
