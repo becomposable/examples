@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { StudyLanguageChat, configure } from "./interactions"
-import { ChatPromptSchema, ExecutionRun } from "@composableai/studio";
+import { ChatPromptSchema, ExecutionRun, PromptRole } from "@composableai/studio";
 
 configure({
   apikey: "sk-ec54686e78643101d7133b95ea2c43c5"
@@ -11,12 +11,14 @@ const studyLaguage = new StudyLanguageChat();
 export default function App() {
   const [text, setText] = useState<string | undefined>(undefined);
   const [chat, setChat] = useState<ChatPromptSchema[]>([]);
-  const [run, setRun] = useState<ExecutionRun>();
   const [message, setMessage] = useState<string | undefined>(undefined);
 
   const executeInteraction = useMemo(() => () => {
     if (!message) return;
-    setRun(undefined);
+    setChat([...chat,
+    { role: PromptRole.user, content: message }
+    ]);
+    setText('');
     const chunks: string[] = [];
     studyLaguage.execute({
       data: {
@@ -28,14 +30,17 @@ export default function App() {
         chat
       }
     },
-      () => {
-
+      (run: ExecutionRun) => {
+        setChat([...chat,
+        { role: PromptRole.assistant, content: run.result as string }
+        ]);
+        setText(undefined);
       },
       (chunk: string) => {
         chunks.push(chunk);
         setText(chunks.join(""));
       });
-  }, [message, run]);
+  }, [message, chat]);
 
   const onTypeMessage = (ev: ChangeEvent<HTMLInputElement>) => {
     setMessage(ev.target.value);
@@ -50,8 +55,11 @@ export default function App() {
         }
       </div>
       <div>
+        {text !== null && <div className='chunks'>{text}</div>}
+      </div>
+      <div>
         <input type='text' value={message} onChange={onTypeMessage} />
-
+        <button onClick={executeInteraction}>Send</button>
       </div>
     </div>
   )
