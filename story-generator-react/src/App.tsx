@@ -1,26 +1,28 @@
 import { ExecutionRun } from '@composableai/studio';
 import { useCallback, useRef, useState } from 'react';
-import { GenerateAStory, GenerateAStoryProps, configure } from './interaction';
+import { GenerateAStory, configure } from './interaction';
 
 configure({
     apikey: 'sk-ec54686e78643101d7133b95ea2c43c5',
 });
 
+const initialValue = `{
+    "student_name": "Julien",
+    "student_age": 12,
+    "interests": ["piano", "anime", "video games"],
+    "study_language": "French",
+    "user_language": "English",
+    "type": "morning story",
+    "topic": "",
+    "level": "intermediate",
+    "length": 300,
+    "style": "Alexandre Dumas"
+}
+`
+
 function App() {
     const [run, setRun] = useState<ExecutionRun>();
     const [content, setContent] = useState<string>();
-    const [data, setData] = useState<GenerateAStoryProps>({
-        student_name: 'Julien',
-        student_age: 12,
-        interests: ['piano', 'anime', 'video games'],
-        study_language: 'French',
-        user_language: 'English',
-        type: 'morning story',
-        topic: '',
-        level: 'intermediate',
-        length: 300,
-        style: 'Alexandre Dumas',
-    });
     const dataRef = useRef<HTMLTextAreaElement>(null);
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
@@ -30,19 +32,20 @@ function App() {
             alert('No data');
             return;
         }
+        let json
         try {
-            const json = JSON.parse(content);
-            setData(json);
+            json = JSON.parse(content);
         } catch (e) {
             alert('Invalid JSON: ' + e);
             return;
         }
 
+        run && setRun(undefined);
         setIsGenerating(true);
         const chunks: string[] = [];
         new GenerateAStory()
             .execute(
-                { data: data },
+                { data: json },
                 (run) => {
                     setRun(run);
                 },
@@ -54,7 +57,7 @@ function App() {
             .finally(() => {
                 setIsGenerating(false);
             });
-    }, []);
+    }, [run]);
 
     return (
         <div>
@@ -67,7 +70,7 @@ function App() {
                     </h2>
                     <textarea
                         style={{ width: '100%', height: '200px' }}
-                        defaultValue={JSON.stringify(data, null, 2)}
+                        defaultValue={initialValue}
                         ref={dataRef}
                     />
                     <button onClick={onClick} disabled={isGenerating}>
