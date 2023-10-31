@@ -6,10 +6,11 @@ The examples are using public [Interactions](https://docs.composableprompts.com/
 
 ## List of examples
 
-| name                                 | description                                                                          |
-| ------------------------------------ | ------------------------------------------------------------------------------------ |
-| [proodread-doc](./proofread-doc/)    | CLI script to proofread markdown documentation                                       |
-| [story-generator](./story-generator) |  Generate a story using various LLMs and input parameters, with or without streaming |
+| name                                       | description                                                                              |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| [proodread-doc](./proofread-doc/)          | CLI script to proofread markdown documentation                                           |
+| [story-generator-react](./story-generator) |  Story Generator in React, using Streaming and Parameters                                |
+| [story-generator](./story-generator)       |  CLI Generate a story using various LLMs and input parameters, with or without streaming |
 
 ## How to use
 
