@@ -1,33 +1,32 @@
 {
-    "name": "@composableai/examples",
-    "version": "1.0.0",
-    "description": "Examples using Composable Prompts's SDK",
-    "main": "index.js",
-    "type": "module",
-    "dependencies": {
-      "@composableai/studio": "^0.7.4",
-      "api-fetch-client": "^0.6.1"
-    },
-    "scripts": {
-      "build": "tsc",
-      "run": "bun index.ts",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "Composable Prompts",
-    "license": "APL-2.0",
-    "devDependencies": {
-      "@types/node": "^20.8.9"
-    },
-    "prettier": {
-        "tabWidth": 4,
-        "useTabs": false,
-      "printWidth": 100,
-      "singleQuote": true,
-      "trailingComma": "es5"
-    },
-    "workspaces": [
-      "*"
-    ]
-  }
-  
+  "name": "@composableai/examples",
+  "version": "1.0.0",
+  "description": "Examples using Composable Prompts's SDK",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "@composableai/studio": "^0.8.4",
+    "api-fetch-client": "^0.6.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "run": "bun index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Composable Prompts",
+  "license": "APL-2.0",
+  "devDependencies": {
+    "@types/node": "^20.8.9"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "useTabs": false,
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "workspaces": [
+    "*"
+  ]
+}
