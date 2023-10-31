@@ -1,6 +1,6 @@
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { StudyLanguageChat, configure } from "./interactions"
 import { ChatPromptSchema, ExecutionRun, PromptRole } from "@composableai/studio";
+import { ChangeEvent, useMemo, useState } from "react";
+import { StudyLanguageChat, configure } from "./interactions";
 
 configure({
   apikey: "sk-ec54686e78643101d7133b95ea2c43c5"
@@ -18,6 +18,7 @@ export default function App() {
     setChat([...chat,
     { role: PromptRole.user, content: message }
     ]);
+    setMessage('');
     setText('');
     const chunks: string[] = [];
     studyLaguage.execute({
@@ -55,10 +56,10 @@ export default function App() {
         }
       </div>
       <div>
-        {text !== null && <div className='chunks'>{text}</div>}
+        {text && <div className='chunks' style={{ whiteSpace: 'pre-wrap' }}>{text}</div>}
       </div>
-      <div>
-        <input type='text' value={message} onChange={onTypeMessage} />
+      <div style={{ marginTop: '16px' }}>
+        <input type='text' value={message || ''} onChange={onTypeMessage} />
         <button onClick={executeInteraction}>Send</button>
       </div>
     </div>
@@ -69,9 +70,10 @@ export default function App() {
 function ChatMessage({ message }: { message: ChatPromptSchema }) {
   return (
     <div style={{
+      whiteSpace: 'pre-wrap',
       borderBottom: '1px solid #dedede',
       margin: '8px 0',
-      padding: '4px 0'
+      padding: '16px 0'
     }}>
       <h3>{message.role}</h3>
       <div>{message.content}</div>
