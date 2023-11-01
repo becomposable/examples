@@ -36,17 +36,21 @@ export default function App() {
             setMessage('');
             setText('');
             const chunks: string[] = [];
+            //add the message to the chat
+            setChat([...chat, { role: PromptRole.user, content: message }]);
             studyLaguage.execute(
                 {
                     data: {
                         ...params,
                         //add message to the chat data sent to the model
+                        //chat context isn't updated yet so need to add user message
                         chat: [...chat, { role: PromptRole.user, content: message }],
                     },
                 },
                 //this is what is called when model response is complete
                 (run: ExecutionRun) => {
                     //save message pair when response is received
+                    //this seems to override previous setChat
                     setChat([
                         ...chat,
                         { role: PromptRole.user, content: message },
@@ -69,24 +73,39 @@ export default function App() {
     };
 
     return (
-        <div>
+        <main>
+            <h1>Composable Prompt Example: Chat + React</h1>
             <div>
-                {chat.map((msg: ChatPromptSchema, index: number) => (
-                    <ChatMessage key={index} message={msg} />
-                ))}
+                This example show how to use a directed Chat with a model using Composable Prompts.
+                Prompts are used for safety and guidance. By default, the model is told that is it a
+                language learning assistant, the user is speaking french and is leanring english.
+                You can change these input parameters in the code.
             </div>
             <div>
-                {text && (
-                    <div className="chunks" style={{ whiteSpace: 'pre-wrap' }}>
-                        {text}
-                    </div>
-                )}
+                <h3>Interactive Guided Chat</h3>
+                <div>
+                    {chat.map((msg: ChatPromptSchema, index: number) => (
+                        <ChatMessage key={index} message={msg} />
+                    ))}
+                </div>
+                <div>
+                    {text && (
+                        <div className="chunks" style={{ whiteSpace: 'pre-wrap' }}>
+                            {text}
+                        </div>
+                    )}
+                </div>
+                <div style={{ marginTop: '16px' }}>
+                    <input
+                        type="text"
+                        value={message || ''}
+                        onChange={onTypeMessage}
+                        placeholder="Type something"
+                    />
+                    <button onClick={executeInteraction}>Send</button>
+                </div>
             </div>
-            <div style={{ marginTop: '16px' }}>
-                <input type="text" value={message || ''} onChange={onTypeMessage} />
-                <button onClick={executeInteraction}>Send</button>
-            </div>
-        </div>
+        </main>
     );
 }
 
