@@ -1,7 +1,7 @@
 import { ChatPromptSchema, PromptRole } from '@composableai/studio';
 import { ChangeEvent, useState } from 'react';
 import { StudyLanguageChat, configure } from './interactions';
-import { useInteraction } from './useInteraction';
+import { useInteractionStreaming } from './useInteractionStreaming';
 
 const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
 if (!API_KEY) {
@@ -26,7 +26,7 @@ export default function App() {
     const [chat, setChat] = useState<ChatPromptSchema[]>([]);
     const [message, setMessage] = useState<string | undefined>(undefined);
 
-    const { isRunning, text, execute } = useInteraction(studyLaguage);
+    const { isRunning, text, execute } = useInteractionStreaming(studyLaguage);
 
     const onTypeMessage = (ev: ChangeEvent<HTMLInputElement>) => {
         setMessage(ev.target.value);

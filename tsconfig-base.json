@@ -11,7 +11,7 @@
       "allowImportingTsExtensions": true,
       "inlineSources": false,
       "isolatedModules": true,
-      "moduleResolution": "node",
+      "moduleResolution": "nodenext",
       "noUnusedLocals": false,
       "noUnusedParameters": false,
       "preserveWatchOutput": true,
@@ -20,7 +20,7 @@
       "noEmit": true,
       "strictNullChecks": true,
       "outDir": "lib",
-      "module": "esnext"
+      "module": "nodenext"
     },
     "exclude": ["node_modules", "lib"]
   }

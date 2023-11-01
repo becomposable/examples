@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { GenerateAStory, configure } from './interaction';
-import { useInteraction } from './useInteraction';
+import { useInteractionStreaming } from './useInteractionStreaming';
+import { ExecutionRun } from '@composableai/studio';
 
 const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
 if (!API_KEY) {
@@ -29,7 +30,8 @@ const initialValue = `{
 
 function App() {
     const dataRef = useRef<HTMLTextAreaElement>(null);
-    const { text, run, execute, isRunning } = useInteraction(generateStory);
+    const { text, execute, isRunning } = useInteractionStreaming(generateStory);
+    const [run, setRun] = useState<ExecutionRun>();
 
     const onClick = () => {
         const content = dataRef.current ? dataRef.current.value : '';
@@ -44,7 +46,7 @@ function App() {
             alert('Invalid JSON: ' + e);
             return;
         }
-        execute({ data: json })
+        execute({ data: json }).then(setRun)
     }
 
     return (
@@ -75,10 +77,10 @@ function App() {
                             padding: '4px',
                         }}
                     >
-                        {run ? (
-                            run.result
+                        {isRunning ? (
+                            <span className={'chunks'}>{text || ''}</span>
                         ) : (
-                            <span className={isRunning ? 'chunks' : ''}>{text}</span>
+                            <span>{run?.result}</span>
                         )}
                     </div>
                 </div>

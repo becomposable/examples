@@ -62,13 +62,9 @@ if (!stream) {
   console.log("Story: \n" + JSON.stringify(story));
 } else {
   //let's stream instead
-  const onCompleted = (run: ExecutionRun) => {
-    console.log("Final Story: ", run.result);
-  };
-
   const onChunk = (chunk: string) => {
     console.log(chunk);
   };
-
-  const story = writer.execute({ data }, onCompleted, onChunk);
+  const story = await writer.execute({ data }, onChunk);
+  console.log("Final Story: ", story.result);
 }
