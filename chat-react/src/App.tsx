@@ -1,7 +1,7 @@
 import { ChatPromptSchema, PromptRole } from '@composableai/studio';
 import { ChangeEvent, useState } from 'react';
 import { StudyLanguageChat, configure } from './interactions';
-import { useInteractionStreaming } from './useInteractionStreaming';
+import { useInteractionStreaming } from '@composableai/react';
 
 const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
 if (!API_KEY) {
