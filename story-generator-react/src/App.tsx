@@ -1,10 +1,17 @@
-import { ExecutionRun } from '@composableai/studio';
-import { useCallback, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { GenerateAStory, configure } from './interaction';
+import { useInteraction } from './useInteraction';
+
+const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
+if (!API_KEY) {
+    throw new Error('VITE_COMPOSABLE_PROMPT_API_KEY is not defined');
+}
 
 configure({
-    apikey: 'sk-ec54686e78643101d7133b95ea2c43c5',
+    apikey: API_KEY,
 });
+
+const generateStory = new GenerateAStory();
 
 const initialValue = `{
     "student_name": "Julien",
@@ -21,12 +28,10 @@ const initialValue = `{
 `
 
 function App() {
-    const [run, setRun] = useState<ExecutionRun>();
-    const [content, setContent] = useState<string>();
     const dataRef = useRef<HTMLTextAreaElement>(null);
-    const [isGenerating, setIsGenerating] = useState<boolean>(false);
+    const { text, run, execute, isRunning } = useInteraction(generateStory);
 
-    const onClick = useCallback(() => {
+    const onClick = () => {
         const content = dataRef.current ? dataRef.current.value : '';
         if (content == null) {
             alert('No data');
@@ -39,25 +44,8 @@ function App() {
             alert('Invalid JSON: ' + e);
             return;
         }
-
-        run && setRun(undefined);
-        setIsGenerating(true);
-        const chunks: string[] = [];
-        new GenerateAStory()
-            .execute(
-                { data: json },
-                (run) => {
-                    setRun(run);
-                },
-                (chunk: string) => {
-                    chunks.push(chunk);
-                    setContent(chunks.join(''));
-                }
-            )
-            .finally(() => {
-                setIsGenerating(false);
-            });
-    }, [run]);
+        execute({ data: json })
+    }
 
     return (
         <div>
@@ -73,8 +61,8 @@ function App() {
                         defaultValue={initialValue}
                         ref={dataRef}
                     />
-                    <button onClick={onClick} disabled={isGenerating}>
-                        {isGenerating ? 'Generating...' : 'Generate story'}
+                    <button onClick={onClick} disabled={isRunning}>
+                        {isRunning ? 'Generating...' : 'Generate story'}
                     </button>
                 </div>
                 <div style={{ flexDirection: 'column' }}>
@@ -90,7 +78,7 @@ function App() {
                         {run ? (
                             run.result
                         ) : (
-                            <span className={content == null ? '' : 'chunks'}>{content || ''}</span>
+                            <span className={isRunning ? 'chunks' : ''}>{text}</span>
                         )}
                     </div>
                 </div>

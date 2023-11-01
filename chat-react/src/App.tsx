@@ -1,6 +1,7 @@
-import { ChatPromptSchema, ExecutionRun, PromptRole } from '@composableai/studio';
-import { ChangeEvent, useMemo, useState } from 'react';
+import { ChatPromptSchema, PromptRole } from '@composableai/studio';
+import { ChangeEvent, useState } from 'react';
 import { StudyLanguageChat, configure } from './interactions';
+import { useInteraction } from './useInteraction';
 
 const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
 if (!API_KEY) {
@@ -13,63 +14,47 @@ configure({
 
 const studyLaguage = new StudyLanguageChat();
 
+const params = {
+    student_name: 'Julien',
+    user_language: 'french',
+    study_language: 'english',
+    interests: ['sports', 'music'],
+    student_age: 20,
+};
+
 export default function App() {
-    const [text, setText] = useState<string | undefined>(undefined);
     const [chat, setChat] = useState<ChatPromptSchema[]>([]);
     const [message, setMessage] = useState<string | undefined>(undefined);
 
-    const params = {
-        student_name: 'Julien',
-        user_language: 'french',
-        study_language: 'english',
-        interests: ['sports', 'music'],
-        student_age: 20,
-    };
-
-    const executeInteraction = useMemo(
-        () => () => {
-            if (!message) {
-                alert('no message typed');
-                return;
-            }
-
-            setMessage('');
-            setText('');
-            const chunks: string[] = [];
-            //add the message to the chat
-            setChat([...chat, { role: PromptRole.user, content: message }]);
-            studyLaguage.execute(
-                {
-                    data: {
-                        ...params,
-                        //add message to the chat data sent to the model
-                        //chat context isn't updated yet so need to add user message
-                        chat: [...chat, { role: PromptRole.user, content: message }],
-                    },
-                },
-                //this is what is called when model response is complete
-                (run: ExecutionRun) => {
-                    //save message pair when response is received
-                    //this seems to override previous setChat
-                    setChat([
-                        ...chat,
-                        { role: PromptRole.user, content: message },
-                        { role: PromptRole.assistant, content: run.result as string },
-                    ]);
-                    setText(undefined);
-                },
-                //this is what is called when streaming chunks are received
-                (chunk: string) => {
-                    chunks.push(chunk);
-                    setText(chunks.join(''));
-                }
-            );
-        },
-        [message, chat]
-    );
+    const { isRunning, text, execute } = useInteraction(studyLaguage);
 
     const onTypeMessage = (ev: ChangeEvent<HTMLInputElement>) => {
         setMessage(ev.target.value);
+    };
+
+    const onSend = () => {
+        if (!message) return;
+        const newChat = [
+            ...chat,
+            {
+                role: PromptRole.user,
+                content: message,
+            } as ChatPromptSchema,
+        ];
+        setChat(newChat);
+        execute({
+            data: {
+                ...params,
+                chat: newChat,
+            },
+        }).then((run) => {
+            setChat([
+                ...newChat,
+                { role: PromptRole.assistant, content: run.result } as ChatPromptSchema,
+            ]);
+        }).catch((err) => {
+            console.error('Failed to execute', err);
+        });
     };
 
     return (
@@ -102,7 +87,9 @@ export default function App() {
                         onChange={onTypeMessage}
                         placeholder="Type something"
                     />
-                    <button onClick={executeInteraction}>Send</button>
+                    <button onClick={onSend} disabled={isRunning}>
+                        {isRunning ? 'Processing ...' : 'Send'}
+                    </button>
                 </div>
             </div>
         </main>

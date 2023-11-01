@@ -1,7 +1,7 @@
 //#export 652d77c65674c387e10594bd @2023-10-31T15:53:10.472Z
 // This is a generated file. Do not edit.
 
-import { StudioClient, InteractionBase } from "@composableai/studio";
+import { StudioClient, InteractionBase, InteractionExecutionPayload } from "@composableai/studio";
 
 const projectId = '652d77c65674c387e10594bd';
 
