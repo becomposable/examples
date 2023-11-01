@@ -13,7 +13,7 @@ Create a new project and copy the API key.
 Then
 
 ```bash
-export COMPOSABLE_PROMPTS_API_KEY=<your api key>
+export VITE_COMPOSABLE_PROMPTS_API_KEY=<your api key>
 ```
 
 ### Launch the example
