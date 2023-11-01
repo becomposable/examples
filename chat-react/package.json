@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@composableai/react": "^0.8.4",
-    "@composableai/studio": "^0.8.5",
+    "@composableai/react": "^0.8.6",
+    "@composableai/sdk": "^0.8.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

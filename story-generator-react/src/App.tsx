@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import { GenerateAStory, configure } from './interaction';
+import { GenerateAStory, configure } from './interactions';
 import { useInteractionStreaming } from '@composableai/react';
-import { ExecutionRun } from '@composableai/studio';
+import { ExecutionRun } from '@composableai/sdk';
 
 const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
 if (!API_KEY) {

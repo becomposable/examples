@@ -1,4 +1,4 @@
-import { ChatPromptSchema, PromptRole } from '@composableai/studio';
+import { ChatPromptSchema, PromptRole } from '@composableai/sdk';
 import { ChangeEvent, useState } from 'react';
 import { StudyLanguageChat, configure } from './interactions';
 import { useInteractionStreaming } from '@composableai/react';

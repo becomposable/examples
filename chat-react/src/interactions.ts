@@ -1,7 +1,7 @@
-//#export 652d77c65674c387e10594bd @2023-10-31T15:53:10.472Z
+//#export 652d77c65674c387e10594bd @2023-11-01T20:55:01.896Z
 // This is a generated file. Do not edit.
 
-import { StudioClient, InteractionBase, InteractionExecutionPayload } from "@composableai/studio";
+import { StudioClient, InteractionBase } from "@composableai/sdk";
 
 const projectId = '652d77c65674c387e10594bd';
 
@@ -19,18 +19,127 @@ const getClient = () => _client;
 export { getClient, projectId }
 
 /**
- * StudyLanguageChat input type
+ * Verify Message input type
  */
-export interface StudyLanguageChatProps {
+export interface VerifyMessageProps {
     student_name: string;
-    student_age: number;
-    interests: string[];
+    student_age?: number;
+    interests?: string[];
     study_language: string;
     user_language: string;
-    chat: {
-        role: "assistant" | "user";
-        content: string;
+    content: string;
+}
+
+/**
+ * Verify Message result type
+ */
+export interface VerifyMessageResult {
+    /**
+     * Is the content correct and natural?
+     */
+    is_correct: boolean;
+    /**
+     * If the content is not correct, correct it here
+     */
+    correction?: string;
+    /**
+     * How important is the mistake? High means the sentence is not understandable, medium means the sentence is understandable but not natural, low means the sentence is natural but not perfect
+     */
+    importance: "low" | "medium" | "high";
+    /**
+     * Explain the mistake, in a short sentence, to the point
+     */
+    explanation?: string;
+}
+
+/**
+ * Define Word input type
+ */
+export interface DefineWordProps {
+    student_name: string;
+    student_age?: number;
+    interests?: string[];
+    study_language: string;
+    user_language: string;
+    word: string;
+    content: string;
+}
+
+/**
+ * Define Word result type
+ */
+export interface DefineWordResult {
+    word?: string;
+    /**
+     * The word in kana if word is in Japanese language
+     */
+    word_kana?: string;
+    /**
+     * Does the word exist?
+     */
+    exists?: boolean;
+    /**
+     * The language of the word
+     */
+    language?: string;
+    /**
+     * The language of the definition
+     */
+    definitionLanguage?: string;
+    /**
+     * required: the pronounciation of the word in a way the user can read in its language and the phonetic transcription in parenthesis like ta-te-mo-no (phonetic transcription)
+     */
+    pronounciation?: string;
+    /**
+     * The corrected word if the word is misspelled
+     */
+    corrected_word?: string;
+    /**
+     * The part of speech of the word
+     */
+    part_of_speech?: string;
+    /**
+     * The morphological characteristics, for example: tense, conjugaison, plural, etc.
+     */
+    morphological_characteristics?: string;
+    /**
+     * The normalized form of the word, for example infinitive for verb, canonical for for plurals, etc.
+     */
+    normalized_form?: string;
+    /**
+     * The normalized form in kana if word is in Japanese language
+     */
+    normalized_form_kana?: string;
+    senses?: {
+        language?: string;
+        translation?: string;
+        definition?: string;
+        example?: string;
+        synonyms?: string;
+        language_level?: string;
+        appropriate_use?: string;
     }[];
+}
+
+/**
+ * Generate Story Options input type
+ */
+export interface GenerateStoryOptionsProps {
+    student_name: string;
+    student_age?: number;
+    interests?: string[];
+    study_language: string;
+    user_language: string;
+}
+
+/**
+ * Generate Story Options result type
+ */
+export interface GenerateStoryOptionsResult {
+    types?: string[];
+    topics?: string[];
+    styles?: string[];
+    levels?: string[];
 }
 
 /**
@@ -38,8 +147,8 @@ export interface StudyLanguageChatProps {
  */
 export interface AnswerCheckerProps {
     student_name: string;
-    student_age: number;
-    interests: string[];
+    student_age?: number;
+    interests?: string[];
     study_language: string;
     user_language: string;
     story: string;
@@ -72,6 +181,42 @@ export interface AnswerCheckerResult {
      * The final score of the user
      */
     score: number;
+}
+
+/**
+ * Generate Questions input type
+ */
+export interface GenerateQuestionsProps {
+    student_name: string;
+    student_age?: number;
+    interests?: string[];
+    study_language: string;
+    user_language: string;
+    content: string;
+}
+
+/**
+ * Generate Questions result type
+ */
+export interface GenerateQuestionsResult {
+    questions?: {
+        question?: string;
+    }[];
+}
+
+/**
+ * StudyLanguageChat input type
+ */
+export interface StudyLanguageChatProps {
+    student_name: string;
+    student_age?: number;
+    interests?: string[];
+    study_language: string;
+    user_language: string;
+    chat: {
+        role: "assistant" | "user";
+        content: string;
+    }[];
 }
 
 /**
@@ -164,8 +309,8 @@ export interface UniversalDictionaryResult {
  */
 export interface GenerateAStoryProps {
     student_name: string;
-    student_age: number;
-    interests: string[];
+    student_age?: number;
+    interests?: string[];
     study_language: string;
     user_language: string;
     type: string;
@@ -180,8 +325,8 @@ export interface GenerateAStoryProps {
  */
 export interface VerifyAndExplainProps {
     student_name: string;
-    student_age: number;
-    interests: string[];
+    student_age?: number;
+    interests?: string[];
     study_language: string;
     user_language: string;
     content: string;
@@ -210,12 +355,32 @@ export interface VerifyAndExplainResult {
 }
 
 /**
- * StudyLanguageChat
+ * Verify Message
  */
-export class StudyLanguageChat extends InteractionBase<StudyLanguageChatProps, any> {
+export class VerifyMessage extends InteractionBase<VerifyMessageProps, VerifyMessageResult> {
     project = projectId;
     constructor(client?: StudioClient) {
-        super("6540c1c250279bbc4d26dbee", client || _client);
+        super ("65429c72cd28fb009c3fd1f3", client || _client);
+    }
+}
+
+/**
+ * Define Word
+ */
+export class DefineWord extends InteractionBase<DefineWordProps, DefineWordResult> {
+    project = projectId;
+    constructor(client?: StudioClient) {
+        super ("65429e41cd28fb009c3fd275", client || _client);
+    }
+}
+
+/**
+ * Generate Story Options
+ */
+export class GenerateStoryOptions extends InteractionBase<GenerateStoryOptionsProps, GenerateStoryOptionsResult> {
+    project = projectId;
+    constructor(client?: StudioClient) {
+        super ("65429a26cd28fb009c3fd15b", client || _client);
     }
 }
 
@@ -225,7 +390,27 @@ export class StudyLanguageChat extends InteractionBase<StudyLanguageChatProps, a
 export class AnswerChecker extends InteractionBase<AnswerCheckerProps, AnswerCheckerResult> {
     project = projectId;
     constructor(client?: StudioClient) {
-        super("653ff24550279bbc4d26d892", client || _client);
+        super ("653ff24550279bbc4d26d892", client || _client);
+    }
+}
+
+/**
+ * Generate Questions
+ */
+export class GenerateQuestions extends InteractionBase<GenerateQuestionsProps, GenerateQuestionsResult> {
+    project = projectId;
+    constructor(client?: StudioClient) {
+        super ("6542952ecd28fb009c3fd062", client || _client);
+    }
+}
+
+/**
+ * StudyLanguageChat
+ */
+export class StudyLanguageChat extends InteractionBase<StudyLanguageChatProps, any> {
+    project = projectId;
+    constructor(client?: StudioClient) {
+        super ("6540c1c250279bbc4d26dbee", client || _client);
     }
 }
 
@@ -235,7 +420,7 @@ export class AnswerChecker extends InteractionBase<AnswerCheckerProps, AnswerChe
 export class SimpleStoryGen extends InteractionBase<SimpleStoryGenProps, SimpleStoryGenResult> {
     project = projectId;
     constructor(client?: StudioClient) {
-        super("652ff6fbd0344fac4c2c15c7", client || _client);
+        super ("652ff6fbd0344fac4c2c15c7", client || _client);
     }
 }
 
@@ -245,7 +430,7 @@ export class SimpleStoryGen extends InteractionBase<SimpleStoryGenProps, SimpleS
 export class UniversalDictionary extends InteractionBase<UniversalDictionaryProps, UniversalDictionaryResult> {
     project = projectId;
     constructor(client?: StudioClient) {
-        super("65314ef978cf8f17f35dfeba", client || _client);
+        super ("65314ef978cf8f17f35dfeba", client || _client);
     }
 }
 
@@ -255,7 +440,7 @@ export class UniversalDictionary extends InteractionBase<UniversalDictionaryProp
 export class GenerateAStory extends InteractionBase<GenerateAStoryProps, any> {
     project = projectId;
     constructor(client?: StudioClient) {
-        super("652e0dfcda623bded923e678", client || _client);
+        super ("652e0dfcda623bded923e678", client || _client);
     }
 }
 
@@ -265,6 +450,6 @@ export class GenerateAStory extends InteractionBase<GenerateAStoryProps, any> {
 export class VerifyAndExplain extends InteractionBase<VerifyAndExplainProps, VerifyAndExplainResult> {
     project = projectId;
     constructor(client?: StudioClient) {
-        super("652e0cfeda623bded923e5f6", client || _client);
+        super ("652e0cfeda623bded923e5f6", client || _client);
     }
 }

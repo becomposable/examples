@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "@composableai/studio": "^0.8.5",
+    "@composableai/sdk": "^0.8.6",
     "api-fetch-client": "^0.6.1",
     "eventsource": "^2.0.2",
     "tiktoken": "^1.0.10"

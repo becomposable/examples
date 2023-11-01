@@ -1,7 +1,7 @@
-import { ExecutionRun, StudioClient } from "@composableai/studio";
+import { StudioClient } from "@composableai/sdk";
 import {
-  GenerateStory,
-  GenerateStoryProps,
+  GenerateAStory,
+  GenerateAStoryProps,
   configure,
 } from "./interactions.js";
 
@@ -37,10 +37,10 @@ const res = await client.interactions.execute(executionId, {
 console.log("Response: ");
 console.log(JSON.stringify(res.result, null, 2));
 
-const writer = new GenerateStory();
+const writer = new GenerateAStory();
 
 //
-const data: GenerateStoryProps = {
+const data: GenerateAStoryProps = {
   type: "short story",
   interests: ["video games", "japan", "edo period"],
   length: 800,

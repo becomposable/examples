@@ -1,13 +1,14 @@
 {
-  "name": "story-generator",
+  "name": "examples-interactions",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
-    "@composableai/sdk": "^0.8.6",
-    "api-fetch-client": "^0.6.1",
-    "eventsource": "^2.0.2"
+    "@composableai/sdk": "^0.8.6"
   },
   "keywords": [
     "llm",
@@ -15,8 +16,5 @@
   ],
   "author": "Composable Prompts",
   "publisher": "Composable Prompts",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.8.9"
-  }
+  "license": "ISC"
 }
