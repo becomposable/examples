@@ -42,6 +42,7 @@ export default function App() {
             } as ChatPromptSchema,
         ];
         setChat(newChat);
+        setMessage('');
         execute({
             data: {
                 ...params,
