@@ -1,18 +1,12 @@
-//#export 6534dc4c9f9ba90d2dadbe9d @2023-11-01T20:56:36.034Z
+//#export 6534dc4c9f9ba90d2dadbe9d @2023-11-06T16:12:12.583Z
 // This is a generated file. Do not edit.
 
-import { StudioClient, InteractionBase } from "@composableai/sdk";
+import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/sdk";
 
 const projectId = '6534dc4c9f9ba90d2dadbe9d';
 
 let _client: StudioClient | undefined;
-export function configure(opts: {
-    serverUrl?: string,
-    apikey?: string,
-    projectId?: string,
-    onRequest?: (url: string, init: RequestInit) => void,
-    onResponse?: (response: Response) => void
-}) {
+export function configure(opts: StudioClientProps) {
     return (_client = new StudioClient({ projectId, ...opts }));
 }
 const getClient = () => _client;
