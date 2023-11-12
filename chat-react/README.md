@@ -10,8 +10,6 @@ Uses React + Vite.
 Get an account on [Composable Prompts](https://composableprompts.com/) (free to try).
 Create a new project and copy the API key.
 
-Then
-
 ```bash
 export VITE_COMPOSABLE_PROMPTS_API_KEY=<your api key>
 ```
@@ -32,6 +30,4 @@ $ bun run dev
 $ vite dev
 ```
 
-Now you can connect to http://localhost:5174/ and clic on Generate Story.
-It will execute the interaction.
-You can experiment with various parameters to see how to configure the Interaction generating the story.
+Now you can connect to http://localhost:5174/ and start chatting.
