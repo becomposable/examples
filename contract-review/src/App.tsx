@@ -80,7 +80,7 @@ function App () {
         });
     };
 
-    const runAnalysis = async () => {
+    const runReview = async () => {
         if (!policyDocument || !contractDocument) return;
         console.log("Running analysis", policyDocument, contractDocument);
         setIsLoading(true);
@@ -160,7 +160,7 @@ function App () {
                             <div className="text-green-700">
                                 Ready to run analysis
                             </div>}
-                        <button disabled={isLoading || !contractDocument || !policyDocument} className="bg-indigo-500 hover:bg-indigo-700 disabled:bg-gray-500 text-white font-bold py-2 px-4 rounded" onClick={runAnalysis}>
+                        <button disabled={isLoading || !contractDocument || !policyDocument} className="bg-indigo-500 hover:bg-indigo-700 disabled:bg-gray-500 text-white font-bold py-2 px-4 rounded" onClick={runReview}>
                             Run Analysis
                         </button>
                     </div>
