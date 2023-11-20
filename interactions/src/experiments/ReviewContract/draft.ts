@@ -1,16 +1,7 @@
-//#export 654df9de09676ad3b8631dc3 @2023-11-10T19:16:28.842Z
+//#export 654df9de09676ad3b8631dc3 654dfa4d09676ad3b8631e39 @2023-11-20T20:36:08.497Z
 // This is a generated file. Do not edit.
 
-import { InteractionBase, StudioClient, StudioClientProps } from "@composableai/sdk";
-
-const projectId = '654df9de09676ad3b8631dc3';
-
-let _client: StudioClient | undefined;
-export function configure (opts: StudioClientProps) {
-    return (_client = new StudioClient({ projectId, ...opts }));
-}
-const getClient = () => _client;
-export { getClient, projectId };
+import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/sdk";
 
 /**
  * Review Contract input type
@@ -34,13 +25,13 @@ export interface ReviewContractResult {
     }[];
 }
 
-
 /**
  * Review Contract
  */
 export class ReviewContract extends InteractionBase<ReviewContractProps, ReviewContractResult> {
-    project = projectId;
-    constructor(client?: StudioClient) {
-        super("654dfa4d09676ad3b8631e39", client || _client);
+    readonly projectId = "654df9de09676ad3b8631dc3";
+    constructor(clientOrProps: StudioClient | StudioClientProps) {
+        super ("654dfa4d09676ad3b8631e39", clientOrProps);
+        this.client.project = this.projectId;
     }
 }

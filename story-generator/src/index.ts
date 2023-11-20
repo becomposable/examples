@@ -2,8 +2,7 @@ import { StudioClient } from "@composableai/sdk";
 import {
   GenerateAStory,
   GenerateAStoryProps,
-  configure,
-} from "./interactions.js";
+} from "@composableai-examples/interactions/lib/language-tutor/GenerateAStory";
 
 const apiKey = process.env.COMPOSABLE_PROMPTS_API_KEY;
 const serverUrl =
@@ -13,11 +12,6 @@ const stream = false;
 if (!apiKey) {
   throw new Error("No API key provided.");
 }
-
-configure({
-  apikey: apiKey,
-  serverUrl: serverUrl,
-});
 
 const client = new StudioClient({
   apikey: apiKey,
@@ -37,7 +31,10 @@ const res = await client.interactions.execute(executionId, {
 console.log("Response: ");
 console.log(JSON.stringify(res.result, null, 2));
 
-const writer = new GenerateAStory();
+const writer = new GenerateAStory({
+  apikey: apiKey,
+  serverUrl: serverUrl,
+});
 
 //
 const data: GenerateAStoryProps = {

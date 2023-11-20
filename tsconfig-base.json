@@ -3,7 +3,9 @@
   "display": "Default",
   "license": "APL-2.0",
   "compilerOptions": {
-    "composite": false,
+    "composite": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
@@ -18,11 +20,6 @@
     "strict": true,
     "noEmit": false,
     "strictNullChecks": true,
-    "outDir": "lib",
     "module": "nodenext"
-  },
-  "exclude": [
-    "node_modules",
-    "lib"
-  ]
+  }
 }

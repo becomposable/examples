@@ -1,11 +1,14 @@
 {
-  "name": "story-generator",
+  "name": "@composableai-examples/story-generator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "scripts": {
+    "build": "tsc --build"
+  },
   "dependencies": {
-    "@composableai/sdk": "^0.9.1",
+    "@composableai/sdk": "^0.9.7",
     "api-fetch-client": "^0.6.1",
     "eventsource": "^2.0.2"
   },

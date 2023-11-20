@@ -1,5 +1,5 @@
 {
-  "name": "story-generator-react",
+  "name": "@composableai-examples/story-generator-react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@composableai/react": "^0.9.0",
-    "@composableai/sdk": "^0.9.1",
+    "@composableai/react": "^0.9.7",
+    "@composableai/sdk": "^0.9.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -1,6 +1,6 @@
 import { ChatPromptSchema, PromptRole } from '@composableai/sdk';
 import { ChangeEvent, useState } from 'react';
-import { StudyLanguageChat, configure } from './interactions';
+import { StudyLanguageChat } from '@composableai-examples/interactions/lib/language-tutor/StudyLanguageChat';
 import { useInteractionStreaming } from '@composableai/react';
 
 const API_KEY = import.meta.env.VITE_COMPOSABLE_PROMPT_API_KEY;
@@ -8,11 +8,9 @@ if (!API_KEY) {
     throw new Error('VITE_COMPOSABLE_PROMPT_API_KEY is not defined');
 }
 
-configure({
+const studyLaguage = new StudyLanguageChat({
     apikey: API_KEY,
 });
-
-const studyLaguage = new StudyLanguageChat();
 
 const params = {
     student_name: 'Julien',

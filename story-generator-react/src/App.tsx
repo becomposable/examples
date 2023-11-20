@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { GenerateAStory, configure } from './interactions';
+import { GenerateAStory } from '@composableai-examples/interactions/lib/language-tutor/GenerateAStory';
 import { useInteractionStreaming } from '@composableai/react';
 import { ExecutionRun } from '@composableai/sdk';
 
@@ -8,11 +8,10 @@ if (!API_KEY) {
     throw new Error('VITE_COMPOSABLE_PROMPT_API_KEY is not defined');
 }
 
-configure({
+
+const generateStory = new GenerateAStory({
     apikey: API_KEY,
 });
-
-const generateStory = new GenerateAStory();
 
 const initialValue = `{
     "student_name": "Julien",

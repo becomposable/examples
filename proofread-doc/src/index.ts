@@ -1,6 +1,6 @@
+import { ProofreadDocumentation } from "@composableai-examples/interactions/lib/proofread/ProofreadDocumentation";
 import { readFileSync, writeFileSync } from "fs";
 import { encoding_for_model } from "tiktoken";
-import { ProofreadDocumentation, configure } from "./interactions.js";
 
 const apiKey = process.env.COMPOSABLE_PROMPTS_API_KEY;
 const serverUrl = process.env.COMPOSABLE_PROMPTS_SERVER_URL || undefined;
@@ -13,15 +13,14 @@ if (!apiKey) {
     throw new Error("No API key provided.");
 }
 
-configure({
-    apikey: apiKey,
-    serverUrl: serverUrl,
-});
 
 //call the interaction to proofread the content
 async function proofread(content: string, tokenCount: number) {
     //instantiating the interaction
-    const req = new ProofreadDocumentation();
+    const req = new ProofreadDocumentation({
+        apikey: apiKey,
+        serverUrl: serverUrl,
+    });
 
     //launch the execution with a custom max_tokens
     //here you could also change the model or environment

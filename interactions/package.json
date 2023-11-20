@@ -1,14 +1,14 @@
 {
-  "name": "examples-interactions",
+  "name": "@composableai-examples/interactions",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "type": "module",
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "@composableai/sdk": "^0.8.6"
+    "@composableai/sdk": "^0.9.7"
   },
   "keywords": [
     "llm",
