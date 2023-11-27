@@ -1,4 +1,4 @@
-# Composable Prompt's SDK + React
+# LLM Chat: Composable Prompt's SDK + React
 
 Quickly create Generative AI-powered React Apps.
 Uses React + Vite.
