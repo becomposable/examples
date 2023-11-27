@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@composableai/sdk": "^0.9.9"
+    "@composableai/sdk": "^0.9.10"
   },
   "keywords": [
     "llm",
