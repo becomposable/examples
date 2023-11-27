@@ -1,4 +1,4 @@
-# Composable Prompts SDK Examples
+# LLM-powered Apps: Composable Prompts SDK Examples
 
 This repository is the reference for [Composable Prompts SDK](https://docs.composableprompts.com). It features examples to showcase various use of composable prompts in various use cases and environment.
 
