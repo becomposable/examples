@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "@composableai/react": "^0.9.10",
-    "@composableai/sdk": "^0.9.10",
+    "@composableai/react": "^0.15.1",
+    "@composableai/sdk": "^0.15.1",
     "api-fetch-client": "^0.6.1",
     "googleapis": "^128.0.0",
     "react-google-drive-picker": "^1.2.2",

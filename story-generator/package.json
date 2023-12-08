@@ -8,7 +8,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@composableai/sdk": "^0.9.10",
+    "@composableai/sdk": "^0.15.1",
     "api-fetch-client": "^0.6.1",
     "eventsource": "^2.0.2"
   },
