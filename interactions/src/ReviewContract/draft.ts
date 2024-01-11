@@ -1,4 +1,4 @@
-//#export 654df9de09676ad3b8631dc3 654dfa4d09676ad3b8631e39 @2023-11-20T20:36:08.497Z
+//#export 654df9de09676ad3b8631dc3 654dfa4d09676ad3b8631e39 @2024-01-11T14:42:45.201Z
 // This is a generated file. Do not edit.
 
 import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/sdk";
@@ -23,6 +23,7 @@ export interface ReviewContractResult {
         description: string;
         suggested_remediation: string;
     }[];
+    exclusivity_period_in_year: number;
 }
 
 /**

@@ -1,7 +1,17 @@
-//#export 654df9de09676ad3b8631dc3 654e592f1501f6d3e4f97a22 @2023-11-20T20:36:08.494Z
+//#export 654df9de09676ad3b8631dc3 659ffd5b7a76ba1033febd3f @2024-01-11T14:42:45.201Z
 // This is a generated file. Do not edit.
 
 import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/sdk";
+
+/**
+ * Review Contract input type
+ */
+export interface ReviewContractProps {
+    contract: string;
+    policy: string;
+    customer_name: string;
+    service_description: string;
+}
 
 /**
  * Review Contract result type
@@ -13,15 +23,16 @@ export interface ReviewContractResult {
         description: string;
         suggested_remediation: string;
     }[];
+    exclusivity_period_in_year: number;
 }
 
 /**
  * Review Contract
  */
-export class ReviewContract extends InteractionBase<any, ReviewContractResult> {
+export class ReviewContract extends InteractionBase<ReviewContractProps, ReviewContractResult> {
     readonly projectId = "654df9de09676ad3b8631dc3";
     constructor(clientOrProps: StudioClient | StudioClientProps) {
-        super ("654e592f1501f6d3e4f97a22", clientOrProps);
+        super ("659ffd5b7a76ba1033febd3f", clientOrProps);
         this.client.project = this.projectId;
     }
 }

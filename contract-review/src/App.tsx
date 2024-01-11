@@ -1,8 +1,8 @@
 //import { configure } from '@composableai/sdk';
+import { ReviewContract, ReviewContractResult } from '@composableai-examples/interactions/lib/ReviewContract';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import DocumentPicker, { DocumentLink } from './DocumentPicker';
-import { ReviewContract, ReviewContractResult } from '@composableai-examples/interactions/lib/experiments/ReviewContract';
 
 export const keys = {
     cpkey: import.meta.env.VITE_CP_KEY,
@@ -82,7 +82,9 @@ function App() {
         if (!policyDocument || !contractDocument) return;
         console.log("Running analysis", policyDocument, contractDocument);
         setIsLoading(true);
-        const reviewer = new ReviewContract({ apikey: keys.cpkey, });
+        const reviewer = new ReviewContract({
+            apikey: keys.cpkey,
+        });
         await reviewer.execute({
             data: {
                 contract: contractDocument?.text,
