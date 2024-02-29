@@ -11,6 +11,7 @@ if (!API_KEY) {
 
 const generateStory = new GenerateAStory({
     apikey: API_KEY,
+    //    serverUrl: 'http://localhost:8091',
 });
 
 const initialValue = `{

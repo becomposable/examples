@@ -10,6 +10,7 @@
   "dependencies": {
     "@composableai/sdk": "^0.15.1",
     "api-fetch-client": "^0.6.1",
+    "dotenv": "^16.4.5",
     "eventsource": "^2.0.2"
   },
   "keywords": [

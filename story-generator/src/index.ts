@@ -2,12 +2,14 @@ import { StudioClient } from "@composableai/sdk";
 import {
   GenerateAStory,
   GenerateAStoryProps,
-} from "@composableai-examples/interactions/lib/language-tutor/GenerateAStory";
+} from "@composableai-examples/interactions/lib/language-tutor/GenerateAStory/index.js";
+import "dotenv/config";
+import { argv } from "process";
 
-const apiKey = process.env.COMPOSABLE_PROMPTS_API_KEY;
+const apiKey = process.env.COMPOSABLE_PROMPT_API_KEY;
 const serverUrl =
-  process.env.COMPOSABLE_PROMPTS_SERVER_URL || "http://localhost:8091";
-const stream = false;
+  process.env.COMPOSABLE_PROMPT_SERVER_URL || "http://localhost:8091";
+const stream = argv[2] === "stream" ? true : false;
 
 if (!apiKey) {
   throw new Error("No API key provided.");
@@ -15,21 +17,37 @@ if (!apiKey) {
 
 const client = new StudioClient({
   apikey: apiKey,
-  projectId: "60f1b0a0a9b9a90d2dadbef0",
+  projectId: "652d77c65674c387e10594bd",
 });
 
-const executionId = "";
-const res = await client.interactions.execute(executionId, {
+const interactionId = "652e0dfcda623bded923e678";
+
+const payload = {
   config: {
-    model: "gpt-3.5turbo",
+    model: "gpt-3.5-turbo",
   },
   data: {
     current_doc: "hello world",
   },
-});
+};
 
-console.log("Response: ");
-console.log(JSON.stringify(res.result, null, 2));
+if (!stream) {
+  const res = await client.interactions.execute(interactionId, payload);
+  console.log("Response: ");
+  console.log(JSON.stringify(res.result, null, 2));
+
+} else {
+  const onChunk = (chunk: string) => {
+    process.stdout.write(chunk);
+  };
+  const story = await client.interactions.execute(interactionId, payload, onChunk);
+  //console.log("Final Story: ", story.result);
+}
+
+// ========== The same executioin but using the generated interaction class
+console.log();
+console.log('============ Same execution but using the generated interaction class:');
+console.log();
 
 const writer = new GenerateAStory({
   apikey: apiKey,
@@ -51,8 +69,8 @@ if (!stream) {
   //blocking execute, wait for the story to be generated
   const story = await writer.execute({
     config: {
-      environment: "60f1b0a0a9b9a90d2dadbef0",
-      model: "gpt-3.5turbo",
+      //environment: "60f1b0a0a9b9a90d2dadbef0",
+      model: "gpt-3.5-turbo",
     },
     data: data,
   });
@@ -60,8 +78,8 @@ if (!stream) {
 } else {
   //let's stream instead
   const onChunk = (chunk: string) => {
-    console.log(chunk);
+    process.stdout.write(chunk);
   };
   const story = await writer.execute({ data }, onChunk);
-  console.log("Final Story: ", story.result);
+  //console.log("Final Story: ", story.result);
 }
