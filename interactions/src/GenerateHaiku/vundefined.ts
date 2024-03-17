@@ -1,4 +1,4 @@
-//#export 654df9de09676ad3b8631dc3 655c54c5a963a422f6a97890 @2024-01-11T14:42:45.193Z
+//#export 654df9de09676ad3b8631dc3 655c54c5a963a422f6a97890 @2024-03-17T15:19:32.735Z
 // This is a generated file. Do not edit.
 
 import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/sdk";

@@ -1,4 +1,4 @@
-//#export 654df9de09676ad3b8631dc3 654dfa4d09676ad3b8631e39 @2024-01-11T14:42:45.201Z
+//#export 654df9de09676ad3b8631dc3 654dfa4d09676ad3b8631e39 @2024-03-17T15:19:32.745Z
 // This is a generated file. Do not edit.
 
 import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/sdk";
@@ -9,8 +9,6 @@ import { StudioClient, StudioClientProps, InteractionBase } from "@composableai/
 export interface ReviewContractProps {
     contract: string;
     policy: string;
-    customer_name: string;
-    service_description: string;
 }
 
 /**
@@ -18,6 +16,8 @@ export interface ReviewContractProps {
  */
 export interface ReviewContractResult {
     is_compliant: boolean;
+    customer_name: string;
+    service_provided: string;
     issues: {
         importance: string;
         description: string;
