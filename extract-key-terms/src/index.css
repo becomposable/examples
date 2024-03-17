@@ -1,0 +1,21 @@
+
+body {
+  margin: 0 20rem;
+  padding: 20px;
+}
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
+
+.chunks::after {
+  content: "";
+  margin-left: 4px;
+  width: 6px;
+  height: 12px;
+  background: purple;
+  display: inline-block;
+  animation: cursor-blink 1.5s steps(2) infinite;
+}
