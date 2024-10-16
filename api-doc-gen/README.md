@@ -150,6 +150,8 @@ To build and publish to the project bucket:
 ❯ composable memo recipes/composable-api-doc.ts --var-studio ~/work/studio -o "memory:composable-api-doc/input"
 ```
 
+Change the path to studio root with the one on your device.
+
 To run the memory pack as the input of the `GenerateAPIDoc2` interaction you should use the following mapping:
 
 ```
@@ -211,8 +213,11 @@ Here is a possible payload for the workflow:
 }
 ```
 
+To start the workflow using the composable client run:
 
-Change the path to studio root with the one on your device.
+```
+TODO
+```
 
 ### nable-api-doc.ts
 
