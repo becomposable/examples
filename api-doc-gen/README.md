@@ -32,7 +32,7 @@ The Generate Haiku can use this memory pack as its input data. The interaction t
 Let's publish first the haiku memory pack to the project containing the "Generate Haiku" interaction. We will do this using the `composable` cli application. We assume you already created a staging (or local) profile. Let's run:
 
 ```
-❯ composable memo ./recipes/haiku.ts -o "memory:haiku"
+❯ composable memo build ./recipes/haiku.ts -o "memory:haiku"
 Memory saved to store_dev_05948c_631dc3/memories/haiku.tar.gz
 ```
 
@@ -141,13 +141,13 @@ This recipe is collecting composable sources and documentation to expose these t
 To build the memory pack:
 
 ```
-memo recipes/composable-api-doc.ts --var-studio ~/work/studio -o composable-api.tar
+memo build recipes/composable-api-doc.ts --var-studio ~/work/studio -o composable-api.tar
 ```
 
 To build and publish to the project bucket:
 
 ```
-❯ composable memo recipes/composable-api-doc.ts --var-studio ~/work/studio -o "memory:composable-api-doc/input"
+❯ composable memo build recipes/composable-api-doc.ts --var-studio ~/work/studio -o "memory:composable-api-doc/input"
 ```
 
 Change the path to studio root with the one on your device.
@@ -228,5 +228,5 @@ This recipe is collecting "nable" sources from its github repository
 To build the memory pack:
 
 ```
-memo recipes/nable-api-doc.ts --var-repo https://github.com/mostafa-n-able/N-central-REST/ -o nable.tar
+memo build recipes/nable-api-doc.ts --var-repo https://github.com/mostafa-n-able/N-central-REST/ -o nable.tar
 ```
