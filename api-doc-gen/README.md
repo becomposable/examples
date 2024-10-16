@@ -144,6 +144,74 @@ To build the memory pack:
 memo recipes/composable-api-doc.ts --var-studio ~/work/studio -o composable-api.tar
 ```
 
+To build and publish to the project bucket:
+
+```
+❯ composable memo recipes/composable-api-doc.ts --var-studio ~/work/studio -o "memory:composable-api-doc/input"
+```
+
+To run the memory pack as the input of the `GenerateAPIDoc2` interaction you should use the following mapping:
+
+```
+{
+  "api_endpoints": "@file:api/**/*.ts",
+  "api_client": "@file:client/**/*.ts",
+  "types": "@file:types/**/*.ts",
+  "examples": "@file:examples/*.mdx",
+}
+```
+
+The `GenerateAPIDoc2` should not be run directly. It is controlled by a workflow named `iterativeGenerationWorkflow`.
+
+In order to run it you should start the workflow with the following configuration vars:
+
+```ts
+interface IterativeGenerationPayload {
+    // the main interaction to execute. If iterative_generation is defined
+    // the main interaction will only be used to prepare the iteration (to generate the TOC)
+    // otherwise it will be used for the iterative generation too.
+    interaction: string;
+    // if defined this will be used for the iterative interaction which will genrate parts.
+    // otherwise the main interaction will be used for iterative generation.
+    iterative_interaction?: string;
+    // the environment to use
+    environment?: string;
+    // the model to use
+    model?: string;
+    // A custom max tokens
+    max_tokens?: number;
+    // A custom temperature
+    temperature?: number;
+    // the memory pack group name
+    memory: string;
+    // the input memory pack mapping
+    input_mapping?: Record<string, string>;
+    // custom toc schema if any
+    toc_schema?: Record<string, any>
+}
+```
+
+Here is a possible payload for the workflow:
+
+```
+{
+    vars: {
+        interaction: 'GenerateAPIDoc2',
+        environment: '65c2ffbd07d5a487fb8f35b7',
+        model: 'gemini-1.5-pro',
+        max_tokens: 8000,
+        memory: 'composable-api-doc/input',
+        input_mapping: {
+            "api_endpoints": "@file:api/**/*.ts",
+            "api_client": "@file:client/**/*.ts",
+            "types": "@file:types/**/*.ts",
+            "examples": "@file:examples/*.mdx",
+        }
+    }
+}
+```
+
+
 Change the path to studio root with the one on your device.
 
 ### nable-api-doc.ts
