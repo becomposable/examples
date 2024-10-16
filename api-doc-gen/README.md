@@ -24,7 +24,7 @@ export default {
 }
 ```
 
-The first line creates a fiel `topic.txt` which content is the word "space".
+The first line creates a file `topic.txt` which content is the word "space".
 And then exports a metadata (which will be saved in the pack as the `metadata.json` file) by setting 3 properties: `topic`, `mood` and `language`.
 
 The Generate Haiku can use this memory pack as its input data. The interaction takes 3 input properties: `topic`, `mood` and `language`.
@@ -216,8 +216,10 @@ Here is a possible payload for the workflow:
 To start the workflow using the composable client run:
 
 ```
-TODO
+composable workflows execute iterativeGenerationWorkflow -f payload.json
 ```
+
+where the payload.json cotnains the payload above.
 
 ### nable-api-doc.ts
 
