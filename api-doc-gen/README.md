@@ -134,6 +134,12 @@ We provide 3 others recipes that can be used in real world scenarios:
 This recipe is fetching the issues used to commit bewteen two revisions and the is creating a diff with the changes.
 This memory pack can the be used to ask a LLM to generate highlights based on the issue descriptions and the code diff.
 
+This memory pack works with the ReleaseNotHiglights interaction. To run it using the memory pack as the input use the command:
+
+```
+❯ composable run ReleaseNoteHighlights -S -d "memory:release-notes" --mmap '{"@":"@", "issues" : "@content:issues/*", "code_diff": "@content:range_diff.txt"}'
+```
+
 ### composable-api-doc.ts
 
 This recipe is collecting composable sources and documentation to expose these to the Generate Api Doc interaction.
