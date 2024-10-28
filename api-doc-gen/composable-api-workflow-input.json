@@ -4,7 +4,7 @@
     "environment": "65c2ffbd07d5a487fb8f35b7",
     "model": "gemini-1.5-pro",
     "max_tokens": 8000,
-    "memory": "composable-api-doc/input",
+    "memory": "composable-api-doc",
     "input_mapping": {
       "api_endpoints": "@file:api/**/*.ts",
       "api_client": "@file:client/**/*.ts",

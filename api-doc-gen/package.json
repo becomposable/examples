@@ -12,6 +12,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@becomposable/memory-commands": "^0.37.0"
+    "@becomposable/memory": "^0.41.0",
+    "@becomposable/memory-commands": "^0.41.0"
   }
 }
