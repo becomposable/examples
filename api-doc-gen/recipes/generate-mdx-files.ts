@@ -19,7 +19,7 @@ function createSectionPage(section: any, meta?: Record<string, string>) {
     }
     content.push(`export const metadata = {`);
     for (const key of Object.keys(props)) {
-        content.push(`    ${key}: ${props[key]},`);
+        content.push(`    ${key}: ${JSON.stringify(props[key])},`);
     }
     content.push(`}`);
     content.push('');

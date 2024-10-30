@@ -4,14 +4,14 @@
     "environment": "65c2ffbd07d5a487fb8f35b7",
     "model": "gemini-1.5-pro",
     "max_tokens": 8000,
-    "memory": "composable-api-doc",
+    "memory": "zeno-api-doc",
     "section_file_pattern": "%id/page.mdx",
     "section_file_header": "export const metadata = {\n  title: \"${section.name}\",\n  generated_at:\"${date}\"\n}",
+    "rememberance_strategy": "section",
     "input_mapping": {
-      "api_endpoints": "@file:api/**/*.ts",
-      "api_client": "@file:client/**/*.ts",
-      "types": "@file:types/**/*.ts",
-      "examples": "@file:examples/*.mdx"
+      "api_endpoints": "@file:api/zeno/*.ts",
+      "api_client": "@file:client/client.ts,client/store/*.ts",
+      "types": "@file:types/store/*.ts"
     }
   }
 }
