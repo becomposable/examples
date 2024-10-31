@@ -8,18 +8,26 @@ if (!start || !end) {
 
 const cwd = tmpdir();
 
-console.log(`Retrieving issues between ${start}and ${end}...`)
-// Get list of commit logs containing '#' between the two tags and extract unique issue numbers
-const issue_numbers = await exec(`git log ${start}..${end} --oneline | grep -o '#[0-9]\\+' | sed 's/#//' | sort -u`) as string;
+console.log(`Retrieving issues between ${start} and ${end}...`)
+// Get list of commit logs containing '#' between the two tags and extract unique reference IDs (issue or pull-request)
+const referenceIds = await exec(`git log ${start}..${end} --oneline | grep -o '#[0-9]\\+' | sed 's/#//' | sort -u`) as string;
 
-for (const issue of issue_numbers.trim().split("\n")) {
-    console.log(`Processing issue #${issue}`)
-    const issue_content = await exec(`gh issue view ${issue}`) as string;
-    copyText(issue_content, `issues/${issue}.txt`);
+for (const reference of referenceIds.trim().split("\n")) {
+    console.log(`Processing reference #${reference}`)
+    let content = await exec(`gh pr view ${reference}`) as string;
+    if (content) {
+        copyText(content, `pull_requests/${reference}.txt`);
+    } else {
+        console.debug(`Failed to get content as pull-request for #${reference}, trying as issue`);
+        content = await exec(`gh issue view ${reference}`) as string;
+        copyText(content, `issues/${reference}.txt`);
+    }
 }
 
 console.log("Generating diff");
-await exec(`git diff --submodule=diff ${start}...${end} > ${cwd}/range_diff.txt`)
+// We use git-log to get authors, commit messages and code diff.
+// We use --submodule=diff to include submodule changes
+await exec(`git log --submodule=diff --patch ${start}...${end} > ${cwd}/range_diff.txt`)
 copy(`${cwd}/range_diff.txt`, "range_diff.txt");
 
 export default {
