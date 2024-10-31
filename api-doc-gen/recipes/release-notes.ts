@@ -14,12 +14,12 @@ const referenceIds = await exec(`git log ${start}..${end} --oneline | grep -o '#
 
 for (const reference of referenceIds.trim().split("\n")) {
     console.log(`Processing reference #${reference}`)
-    try {
-        const content = await exec(`gh pr view ${reference}`) as string;
+    let content = await exec(`gh pr view ${reference}`) as string;
+    if (content) {
         copyText(content, `pull_requests/${reference}.txt`);
-    } catch (e) {
-        console.debug(`Failed to get content as pull-request for #${reference}, trying as issue`, e);
-        const content = await exec(`gh issue view ${reference}`) as string;
+    } else {
+        console.debug(`Failed to get content as pull-request for #${reference}, trying as issue`);
+        content = await exec(`gh issue view ${reference}`) as string;
         copyText(content, `issues/${reference}.txt`);
     }
 }
