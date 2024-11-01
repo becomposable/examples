@@ -9,10 +9,18 @@ if (!start || !end) {
 const cwd = tmpdir();
 
 console.log(`Retrieving issues between ${start} and ${end}...`)
-// Get list of commit logs containing '#' between the two tags and extract unique reference IDs (issue or pull-request)
-const referenceIds = await exec(`git log ${start}..${end} --oneline | grep -o '#[0-9]\\+' | sed 's/#//' | sort -u`) as string;
 
-for (const reference of referenceIds.trim().split("\n")) {
+// Get GitHub reference IDs (issue or pull-request) from commit messages
+// Commits having the hashtag
+const hashtagIds = await exec(`git log ${start}..${end} --oneline | grep -o '#[0-9]+' | sed 's/#//'`) as string;
+// Commits with patterns like "fix(123) ..." or "feat(123) ..."
+const patternIds = await exec(`git log ${start}..${end} --oneline | grep -o '\\([0-9]+\\)'`) as string;
+
+const unsortedReferenceIds = new Set(`${hashtagIds}\n${patternIds}`.trim().split("\n").map(v => v.trim()).map(Number));
+const referenceIds = Array.from(unsortedReferenceIds).sort((a, b) => a - b);
+console.log(`Found ${referenceIds.length} references`);
+
+for (const reference of referenceIds) {
     console.log(`Processing reference #${reference}`)
     let content = await exec(`gh pr view ${reference}`) as string;
     if (content) {
