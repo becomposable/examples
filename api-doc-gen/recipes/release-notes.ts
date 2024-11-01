@@ -1,6 +1,6 @@
 import { copy, copyText, exec, tmpdir, vars } from "@becomposable/memory-commands";
 
-const { start, end } = vars();
+const { start, end, milestone } = vars();
 if (!start || !end) {
     console.error("Please provide start and end tags using --var-start and --var-end");
     process.exit(1);
@@ -16,6 +16,13 @@ const hashtagIds = await exec(`git log ${start}..${end} --oneline | grep -o -E '
 // Commits with patterns like "fix(456) ..." or "feat(456) ..." => 456
 const patternIds = await exec(`git log ${start}..${end} --oneline | grep -o -E '\\([0-9]+\\)' | sed 's/[()]//g'`) as string;
 
+const issueIds = new Set<string>();
+if (milestone) {
+    console.log(`Retrieving issues for milestone ${milestone}...`)
+    const content = await exec(`gh issue list --milestone "${milestone}" --state all --json number --jq '.[].number'`) as string;
+    content.trim().split("\n").forEach(v => issueIds.add(v));
+}
+
 const unsortedReferenceIds = new Set(`${hashtagIds}\n${patternIds}`.trim().split("\n").map(v => v.trim()).map(Number));
 const referenceIds = Array.from(unsortedReferenceIds).sort((a, b) => a - b);
 console.log(`Found ${referenceIds.length} references`);
@@ -29,7 +36,14 @@ for (const reference of referenceIds) {
         console.debug(`Failed to get content as pull-request for #${reference}, trying as issue`);
         content = await exec(`gh issue view ${reference}`) as string;
         copyText(content, `issues/${reference}.txt`);
+        issueIds.delete(`${reference}`);
     }
+}
+
+for (const issue of issueIds) {
+    console.log(`Processing reference #${issue}`)
+    let content = await exec(`gh issue view ${issue}`) as string;
+    copyText(content, `issues/${issue}.txt`);
 }
 
 console.log("Generating diff");
