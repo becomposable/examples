@@ -11,10 +11,10 @@ const cwd = tmpdir();
 console.log(`Retrieving issues between ${start} and ${end}...`)
 
 // Get GitHub reference IDs (issue or pull-request) from commit messages
-// Commits having the hashtag
+// Commits having the hashtag, like "Fix #123" => 123
 const hashtagIds = await exec(`git log ${start}..${end} --oneline | grep -o -E '#[0-9]+' | sed 's/#//'`) as string;
-// Commits with patterns like "fix(123) ..." or "feat(123) ..."
-const patternIds = await exec(`git log ${start}..${end} --oneline | grep -o -E '\\([0-9]+\\)'`) as string;
+// Commits with patterns like "fix(456) ..." or "feat(456) ..." => 456
+const patternIds = await exec(`git log ${start}..${end} --oneline | grep -o -E '\\([0-9]+\\)' | sed 's/[()]//g'`) as string;
 
 const unsortedReferenceIds = new Set(`${hashtagIds}\n${patternIds}`.trim().split("\n").map(v => v.trim()).map(Number));
 const referenceIds = Array.from(unsortedReferenceIds).sort((a, b) => a - b);
