@@ -46,10 +46,14 @@ for (const issue of issueIds) {
     copyText(content, `issues/${issue}.txt`);
 }
 
-console.log("Generating diff");
-// We use git-log to get authors, commit messages and code diff.
-// We use --submodule=diff to include submodule changes
-await exec(`git log --submodule=diff --patch ${start}...${end} > ${cwd}/range_diff.txt`)
+console.log("Generating commits and diff");
+
+// We use git-log to get authors and commit messages.
+// We don't include the diff in this file, as it's too much information for the LLM.
+await exec(`git log --submodule=diff ${start}...${end} > ${cwd}/commits.txt`)
+copy(`${cwd}/commits.txt`, "commits.txt");
+
+await exec(`git diff --submodule=diff ${start}...${end} > ${cwd}/range_diff.txt`)
 copy(`${cwd}/range_diff.txt`, "range_diff.txt");
 
 export default {
