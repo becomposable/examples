@@ -50,10 +50,13 @@ console.log("Generating commits and diff");
 
 // We use git-log to get authors and commit messages.
 // We don't include the diff in this file, as it's too much information for the LLM.
+// We use ".." to see the commits that are unique to the right side (end)
 await exec(`git log --submodule=diff ${start}..${end} -- ':!docs/changelog/*' > ${cwd}/commits.txt`)
 copy(`${cwd}/commits.txt`, "commits.txt");
 
-await exec(`git diff --submodule=diff ${start}..${end} -- ':!docs/changelog/*' > ${cwd}/range_diff.txt`)
+// We use "..." to compare the right side (end) to the merge base. We don't use ".."
+// because we don't want to compare two refs directly.
+await exec(`git diff --submodule=diff ${start}...${end} -- ':!docs/changelog/*' > ${cwd}/range_diff.txt`)
 copy(`${cwd}/range_diff.txt`, "range_diff.txt");
 
 export default {
